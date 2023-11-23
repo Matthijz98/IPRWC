@@ -32,17 +32,17 @@ steps:
   - name: install
     image: node
     commands:
-      - cd frontend
+      - cd front-end
       - npm install
   - name: test
     image: node
     commands:
-      - cd frontend
+      - cd front-end
       - npm test
   - name: build angular
     image: node
     commands:
-      - cd frontend
+      - cd front-end
       - npm run build
   - name: build docker image
     image: plugins/docker
