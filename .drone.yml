@@ -1,0 +1,82 @@
+kind: pipeline
+name: backend
+load: secret
+
+steps:
+  - name: install
+    image: java
+    commands:
+      - cd backend
+      - test
+  - name: test
+    image: java
+    commands:
+      - cd backend
+      - test
+  - name: build docker image
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: registry-username
+      password:
+        from_secret: registry-password
+      repo: registry.sliceofbits.com/iprwc-backend
+      registry: registry.sliceofbits.com/
+      tags: latest
+
+---
+kind: pipeline
+name: frontend
+load: secret
+steps:
+  - name: install
+    image: node
+    commands:
+      - cd frontend
+      - npm install
+  - name: test
+    image: node
+    commands:
+      - cd frontend
+      - npm test
+  - name: build angular
+    image: node
+    commands:
+      - cd frontend
+      - npm run build
+  - name: build docker image
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: registry-username
+      password:
+        from_secret: registry-password
+      repo: registry.sliceofbits.com/iprwc-frontend
+      registry: registry.sliceofbits.com/
+      tags: latest
+
+
+---
+kind: pipeline
+name: after
+load: secret
+
+steps:
+  - name: ssh
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        - 188.166.107.220
+      username:
+        from_secret: ssh_username
+      password:
+        from_secret: ssh_password
+      port: 22
+      command_timeout: 2m
+      script:
+        - cd iprwc/
+        - docker-compose pull && docker-compose up -d
+
+depends_on:
+  - backend
+  - frontend
