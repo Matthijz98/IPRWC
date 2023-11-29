@@ -1,16 +1,14 @@
-<div class="overflow-hidden rounded-md border-black border-2 shadow-xl">
-  <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
-       class="">
-  <div class="mt-4 flex justify-between">
-    <div class="p-2">
-      <h3 class="text-sm text-gray-700">
-        <a href="#">
-          <span aria-hidden="true" class="absolute inset-0"></span>
+<div class="overflow-hidden rounded-md border-black border-2 shadow-xl mb-4">
+  <a [routerLink]="['/product', 1]">
+    <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
+         class="">
+    <div class="flex justify-between">
+      <div class="p-6">
+        <h3 class="text-2xl font-bold text-gray-700">
           Basic Tee
-        </a>
-      </h3>
-      <p class="mt-1 text-sm text-gray-500">Black</p>
-      <p class="text-sm font-medium text-gray-900">$35</p>
+        </h3>
+        <p class="text-xl font-medium text-gray-900">$35</p>
+      </div>
     </div>
-  </div>
+  </a>
 </div>
