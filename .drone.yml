@@ -30,17 +30,17 @@ name: frontend
 load: secret
 steps:
   - name: install
-    image: node
+    image: node:18
     commands:
       - cd front-end
       - npm install
   - name: test
-    image: node
+    image: node:18
     commands:
       - cd front-end
       - npm test
   - name: build angular
-    image: node
+    image: node:18
     commands:
       - cd front-end
       - npm run build
