@@ -1,0 +1,13 @@
+version: '3'
+services:
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pass # set a password for the database
+      POSTGRES_USER: root # set the username for the database
+      POSTGRES_DB: iprwc # give the default database a name
+    volumes:
+      - ./db-data:/var/lib/postgresql/data # mount the data folder to a local folder named "db-data" this makes is easyer to update the database
+    ports:
+      - 5432:5432 #expose the port so you can access the port with a database management programm
