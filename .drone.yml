@@ -4,10 +4,10 @@ load: secret
 
 steps:
   - name: install
-    image: openjdk:8
+    image: 8.5-alpine
     commands:
       - cd backend
-      - mvn package
+      - ./gradlew build
 #  - name: test
 #    image: java
 #    commands:
