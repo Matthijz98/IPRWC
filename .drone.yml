@@ -4,7 +4,7 @@ load: secret
 
 steps:
   - name: install
-    image: 8.5-alpine
+    image: gradle:8.5-alpine
     commands:
       - cd backend
       - ./gradlew build
@@ -17,6 +17,7 @@ steps:
     image: plugins/docker
     settings:
       context: ./backend
+      dockerfile: ./backend/Dockerfile
       username:
         from_secret: registry-username
       password:
@@ -52,6 +53,7 @@ steps:
     image: plugins/docker
     settings:
       context: ./front-end
+      dockerfile: ./front-end/Dockerfile
       username:
         from_secret: registry-username
       password:
