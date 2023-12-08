@@ -13,6 +13,8 @@ services:
 steps:
   - name: build jar
     image: gradle:8.5-alpine
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/iprwc
     commands:
       - cd backend
       - gradle clean build
