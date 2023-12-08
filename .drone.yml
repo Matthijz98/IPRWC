@@ -3,16 +3,12 @@ name: backend
 load: secret
 
 steps:
-  - name: install
+  - name: build jar
     image: gradle:8.5-alpine
     commands:
       - cd backend
-      - gradle build
-#  - name: test
-#    image: java
-#    commands:
-#      - cd backend
-#      - test
+      - gradle clean build
+
   - name: build docker image
     image: plugins/docker
     settings:
