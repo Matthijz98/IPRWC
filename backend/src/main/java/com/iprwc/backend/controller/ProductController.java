@@ -36,6 +36,18 @@ public class ProductController {
         }
     }
 
+    @PostMapping("/products")
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        try {
+            Product _product = productRepository
+                    .save(new Product(product.getId(), product.getTitle(), product.getDescription(), product.getPrice()));
+            return new ResponseEntity<>(_product, HttpStatus.CREATED);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/products/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") long id) {
         Optional<Product> productData = productRepository.findById(id);
