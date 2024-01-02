@@ -13,4 +13,8 @@ export class ProductService{
     return this.http.get<Product[]>('http://localhost:8080/api/products')
   }
 
+  get_product(id: number){
+    return this.http.get<Product>('http://localhost:8080/api/products/' + id)
+  }
+
 }

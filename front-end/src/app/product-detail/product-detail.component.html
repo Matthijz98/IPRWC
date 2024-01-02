@@ -2,16 +2,16 @@
   <div class="columns-2">
     <div>
       <img src="https://via.placeholder.com/800x800" alt="">
-      <button class="rounded-full bg-blue-500 py-2 px-5 text-white font-bold">Add to cart</button>
     </div>
-    <div class="">
-      <h1 class="text-2xl font-bold">Product </h1>
-      <p>Short description</p>
-      <span class="font-bold">Price:</span>
-      <span class="">€ 75,57</span>
+    <div class="flex flex-col">
+      <h1 class="text-2xl font-bold">{{product.title}}</h1>
+      <span class="font-bold">Price: </span>
+      <span class="">€ {{product.price}}</span>
 
-      <h2>Desciption</h2>
-      <p>Long description</p>
+      <button class="my-4 rounded-full bg-blue-500 py-2 px-5 text-white font-bold">Add to cart</button>
+
+      <h2 class="text-2xl font-bold pt-2">Desciption</h2>
+      <p>{{product.description}}</p>
     </div>
   </div>
 </div>
