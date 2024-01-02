@@ -1,4 +1,5 @@
-FROM openjdk:17-jre-slim
-ARG JAR_FILE=build/libs/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM openjdk:23-slim
+RUN mkdir /app
+COPY build/libs /app
+RUN find /app -type f ! -name '*plain*' -name '*.jar' -exec mv {} /app/app.jar \;
+ENTRYPOINT ["java","-jar","/app/app.jar"]
