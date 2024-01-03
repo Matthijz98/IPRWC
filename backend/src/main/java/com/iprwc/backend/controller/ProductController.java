@@ -39,9 +39,12 @@ public class ProductController {
     @PostMapping("/products")
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         try {
-            Product _product = productRepository
-                    .save(new Product(product.getId(), product.getTitle(), product.getDescription(), product.getPrice()));
-            return new ResponseEntity<>(_product, HttpStatus.CREATED);
+            Product _product = new Product();
+            _product.setTitle(product.getTitle());
+            _product.setDescription(product.getDescription());
+            _product.setPrice(product.getPrice());
+            Product savedProduct = productRepository.save(_product);
+            return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
         } catch (Exception e) {
             System.out.println(e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -56,6 +59,17 @@ public class ProductController {
             return new ResponseEntity<>(productData.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") long id) {
+        try {
+            productRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

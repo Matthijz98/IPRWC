@@ -19,9 +19,10 @@
       <td class="py-4 px-6">{{product.price}}</td>
       <td class="py-4 px-6">
         <button class="bg-blue-600 py-1 px-2 rounded text-white font-bold mr-1">Edit</button>
-        <button class="bg-red-600 py-1 px-2 rounded text-white font-bold">Delete</button>
+        <button class="bg-red-600 py-1 px-2 rounded text-white font-bold" (click)="onDeleteProduct(product.id)">Delete</button>
       </td>
     </tr>
     </tbody>
   </table>
+  <app-create-product (productCreated)="onProductCreated($event)"></app-create-product>
 </div>
