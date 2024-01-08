@@ -1,6 +1,7 @@
 package com.iprwc.backend.services;
 
 import com.iprwc.backend.dto.CredentialsDto;
+import com.iprwc.backend.dto.SignUpDto;
 import com.iprwc.backend.dto.UserDto;
 import com.iprwc.backend.exceptions.AppException;
 import com.iprwc.backend.mappers.UserMapper;
@@ -31,5 +32,20 @@ public class UserService {
         } else {
             throw new AppException("Wrong password", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    public UserDto register(SignUpDto signUpDto){
+        Optional<User> oUser = userRepository.findByLogin(signUpDto.login());
+
+        if (oUser.isPresent()) {
+            throw new AppException("User already exists", HttpStatus.BAD_REQUEST);
+        }
+
+        User user = userMapper.signUpToUser(signUpDto);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User savedUser = userRepository.save(user);
+
+        return userMapper.toUserDto(savedUser);
     }
 }

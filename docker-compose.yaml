@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_PASSWORD: pass # set a password for the database
+      POSTGRES_USER: root # set the username for the database
+      POSTGRES_DB: iprwc # give the default database a name
+    networks:
+      - backend
+  backend:
+    image: registry.sliceofbits.com/iprwc-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/iprwc
+    depends_on:
+      - db
+    networks:
+      - backend
+  frontend:
+    image: registry.sliceofbits.com/iprwc-frontend
+    depends_on:
+      - backend
+    networks:
+      - web
+      - backend
+
+networks:
+  web:
+    external: true
+  backend:
+    external: false
