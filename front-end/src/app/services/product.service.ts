@@ -13,16 +13,16 @@ export class ProductService{
   constructor(private http: HttpClient,) { }
 
   get_products(){
-    return this.http.get<Product[]>('http://localhost:8080/api/products')
+    return this.http.get<Product[]>('http://localhost:8080/public/products/')
   }
 
   get_product(id: number){
-    return this.http.get<Product>('http://localhost:8080/api/products/' + id)
+    return this.http.get<Product>('http://localhost:8080/public/products/' + id)
   }
 
   create_product(title: string, description: string, price: number){
     const newProduct = { title: title, description: description, price: price };
-    return this.http.post<Product>('http://localhost:8080/api/products', newProduct)
+    return this.http.post<Product>('http://localhost:8080/private/products', newProduct)
   }
 
   del_product(id: number){

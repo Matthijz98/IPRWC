@@ -12,13 +12,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
 public class ProductController {
 
     @Autowired
     ProductRepository productRepository;
 
-    @GetMapping("/products")
+    @GetMapping("/public/products/")
     public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String title ){
         try {
             List<Product> products = new ArrayList<Product>();
@@ -36,7 +35,7 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/products")
+    @PostMapping("/private/products")
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         try {
             Product _product = new Product();
@@ -51,7 +50,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/public/products/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") long id) {
         Optional<Product> productData = productRepository.findById(id);
 
@@ -62,7 +61,7 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping("/private/products/{id}")
     public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") long id) {
         try {
             productRepository.deleteById(id);

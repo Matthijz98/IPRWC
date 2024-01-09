@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-import {HttpErrorResponse} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpErrorResponse} from "@angular/common/http";
+import { Router } from '@angular/router';
+import {AuthInterceptorService} from "../../services/authInterceptor.service";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ import {HttpErrorResponse} from "@angular/common/http";
     CommonModule,
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
   username: string = '';
@@ -20,13 +22,16 @@ export class LoginComponent {
   success_message: string = '';
   error_message: string = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   login(): void {
     this.authService.login(this.username, this.password).subscribe(response => {
       // Handle login success
       this.success_message = 'Login successful';
       this.error_message = '';
+      const redirectUrl = localStorage.getItem('redirectUrl') || '/';
+      console.log(redirectUrl)
+      this.router.navigate(['/admin']);
     }, error => {
       // Handle login error
       this.error_message = 'Login failed';

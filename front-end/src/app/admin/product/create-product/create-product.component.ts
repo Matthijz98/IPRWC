@@ -2,6 +2,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
 import {FormsModule} from "@angular/forms";
 import {Product} from "../../../interfaces/product";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptorService} from "../../../services/authInterceptor.service";
 
 @Component({
   selector: 'app-create-product',
@@ -11,9 +13,6 @@ import {Product} from "../../../interfaces/product";
   ],
   templateUrl: './create-product.component.html',
   styleUrl: './create-product.component.css',
-  providers: [
-    ProductService,
-  ]
 })
 export class CreateProductComponent {
   title: string = '';

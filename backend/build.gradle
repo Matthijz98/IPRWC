@@ -36,6 +36,9 @@ dependencies {
     // Database dependencies
     runtimeOnly 'org.postgresql:postgresql'
     implementation 'jakarta.persistence:jakarta.persistence-api'
+
+    // JWT dependencies
+    implementation 'com.auth0:java-jwt:4.4.0'
 }
 
 tasks.named('bootBuildImage') {
