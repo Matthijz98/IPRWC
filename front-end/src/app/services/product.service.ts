@@ -26,6 +26,6 @@ export class ProductService{
   }
 
   del_product(id: number){
-    return this.http.delete<Product>('http://localhost:8080/api/products/' + id)
+    return this.http.delete<Product>('http://localhost:8080/private/products/' + id)
   }
 }
