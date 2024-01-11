@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {OrderService} from "../../services/order.service";
-import {DatePipe, NgForOf} from "@angular/common";
+import {CommonModule, DatePipe, NgForOf} from "@angular/common";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {Order} from "../../interfaces/order";
 
@@ -9,15 +9,21 @@ import {Order} from "../../interfaces/order";
   standalone: true,
   imports: [
     NgForOf,
-    RouterLink
+    RouterLink,
+    CommonModule,
   ],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
 export class AccountOrderComponent {
+  success: boolean = false;
   order: any;
   order_id: number = 0;
-  constructor(private orderService: OrderService, private route: ActivatedRoute) { }
+  constructor(private orderService: OrderService, private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+      this.success = params['success'] === 'true';
+    });
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

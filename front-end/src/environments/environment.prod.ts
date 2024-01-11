@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://iprwc.sliceofbits.com/'
+  apiUrl: 'https://iprwc.sliceofbits.com'
 };
