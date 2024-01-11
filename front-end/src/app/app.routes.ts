@@ -6,11 +6,17 @@ import {OrderDetailsComponent} from "./admin/order/order-details/order-details.c
 import {HomePageComponent} from "./webshop/home-page/home-page.component";
 import {ProductDetailComponent} from "./webshop/product/product-detail/product-detail.component";
 import {ShoppingCardComponent} from "./webshop/shopping-card/shopping-card.component";
+import {AccountPageComponent} from "./account/account-page/account-page.component";
+import {AccountOrderComponent} from "./account/order/order.component";
 
 export const routes: Routes = [
   { path: 'admin/order/:id', component: OrderDetailsComponent, canActivate: [AuthGuard]},
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
   { path: '', component: HomePageComponent },
+
+  // Account routes
+  { path: 'account', component: AccountPageComponent, canActivate: [AuthGuard] },
+  { path: 'account/order/:id', component: AccountOrderComponent, canActivate: [AuthGuard] },
 
   // product details route
   { path: 'product/:id', component: ProductDetailComponent },

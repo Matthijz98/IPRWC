@@ -54,7 +54,7 @@ export class CreateOrderFromShoppingCardComponent {
       // if order was created successfully, clear the cart and redirect to the order details page
       this.cartData = [];
       // send to the order page
-      this.router.navigate(['/order', response.id]);
+      this.router.navigate(['/account/order', response.id]);
     });
   }
 }
