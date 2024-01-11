@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../services/card.service';
-import { Product } from '../interfaces/product';
 import {NgForOf} from "@angular/common";
+import {Product} from "../../interfaces/product";
+import {CartService} from "../../services/card.service";
 
 @Component({
   selector: 'app-shopping-card',

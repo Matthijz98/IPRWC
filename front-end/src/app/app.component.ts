@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import {NavBarComponent} from "./nav-bar/nav-bar.component";
-import {ProductDetailComponent} from "./product-detail/product-detail.component";
-import {ProductCardComponent} from "./product-card/product-card.component";
+import {NavBarComponent} from "./webshop/nav-bar/nav-bar.component";
+import {ProductDetailComponent} from "./webshop/product/product-detail/product-detail.component";
+import {ProductCardComponent} from "./webshop/product/product-card/product-card.component";
 
 @Component({
   selector: 'app-root',

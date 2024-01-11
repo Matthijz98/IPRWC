@@ -1,8 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterLink} from "@angular/router";
-import {Product} from "../interfaces/product";
-import {CartService} from "../services/card.service";
+import {Product} from "../../../interfaces/product";
+import {CartService} from "../../../services/card.service";
+
 
 
 @Component({

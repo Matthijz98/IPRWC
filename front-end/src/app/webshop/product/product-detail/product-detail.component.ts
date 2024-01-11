@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {NavBarComponent} from "../nav-bar/nav-bar.component";
-import {Product} from "../interfaces/product";
-import {ProductService} from "../services/product.service";
 import { ActivatedRoute } from '@angular/router';
+import {NavBarComponent} from "../../nav-bar/nav-bar.component";
+import {ProductService} from "../../../services/product.service";
+import {Product} from "../../../interfaces/product";
 
 @Component({
   selector: 'app-product-detail',
