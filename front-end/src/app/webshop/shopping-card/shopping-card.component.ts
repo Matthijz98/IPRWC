@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {Product} from "../../interfaces/product";
 import {CartService} from "../../services/card.service";
+import {
+  CreateOrderFromShoppingCardComponent
+} from "../order/create-order-from-shopping-card/create-order-from-shopping-card.component";
 
 @Component({
   selector: 'app-shopping-card',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    CreateOrderFromShoppingCardComponent
   ],
   templateUrl: './shopping-card.component.html',
   styleUrl: './shopping-card.component.css'

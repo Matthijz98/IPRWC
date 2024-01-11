@@ -20,9 +20,8 @@ export class OrderService{
     return this.http.get<Order>('http://localhost:8080/private/orders/' + id)
   }
 
-  create_order(name: string, description: string, price: number){
-    const newOrder = { name: name, description: description, price: price };
-    return this.http.post<Order>('http://localhost:8080/public/orders', newOrder)
+  create_order(orderData: any){
+    return this.http.post<Order>('http://localhost:8080/private/orders', orderData)
   }
 
   del_order(id: number){

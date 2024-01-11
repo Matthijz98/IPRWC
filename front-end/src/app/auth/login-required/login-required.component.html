@@ -1,0 +1,11 @@
+<div>
+  <div *ngIf="!authService.isLoggedIn()">
+    <h2>You need to be logged in to see this content</h2>
+    <app-login></app-login>
+  </div>
+
+  <div *ngIf="authService.isLoggedIn()">
+    <ng-content></ng-content>
+  </div>
+</div>
+

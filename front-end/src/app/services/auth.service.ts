@@ -9,6 +9,10 @@ import {tap} from "rxjs";
 export class AuthService{
   constructor(private http: HttpClient, private router: Router) { }
 
+  isLoggedIn(){
+    return !!localStorage.getItem('jwtToken');
+  }
+
   login(username: string, password: string){
     const newLogin = { login: username, password: password };
     return this.http.post<{token: string}>('http://localhost:8080/login', newLogin).pipe(

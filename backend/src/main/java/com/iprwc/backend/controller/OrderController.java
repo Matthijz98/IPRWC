@@ -1,13 +1,19 @@
 package com.iprwc.backend.controller;
-import com.iprwc.backend.model.Order;
-import com.iprwc.backend.model.Product;
-import com.iprwc.backend.repository.OrderRepsoitory;
 
+import com.iprwc.backend.dto.AddressDto;
+import com.iprwc.backend.dto.CreateOrderDetailDto;
+import com.iprwc.backend.dto.CreateOrderDto;
+import com.iprwc.backend.dto.UserDto;
+import com.iprwc.backend.model.*;
+import com.iprwc.backend.repository.*;
+import com.iprwc.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,33 +21,62 @@ import java.util.Optional;
 public class OrderController {
 
     @Autowired
-    OrderRepsoitory orderRepository;
+    private OrderRepository orderRepository;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private AddressRepository addressRepository;
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @GetMapping("/private/orders/")
-    public ResponseEntity<List<Order>> getAllOrders(@RequestParam(required = false) String title){
-        try {
-            List<Order> orders = orderRepository.findAll();
-
-            if (orders.isEmpty()) {
-                return ResponseEntity.noContent().build();
-            }
-
-            return ResponseEntity.ok(orders);
-        } catch (Exception e) {
-            System.out.println(e);
-            return ResponseEntity.internalServerError().build();
-        }
+    public ResponseEntity<List<Order>> getAllOrders() {
+        List<Order> orders = orderRepository.findAll();
+        return orders.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(orders);
     }
 
     @GetMapping("/private/orders/{id}")
     public ResponseEntity<Order> getProductById(@PathVariable("id") long id) {
-        Optional<Order> orderData = orderRepository.findById(id);
-
-        if (orderData.isPresent()) {
-            return new ResponseEntity<>(orderData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return orderRepository.findById(id)
+                .map(order -> ResponseEntity.ok(order))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PostMapping("/private/orders")
+    public ResponseEntity<Order> createOrder(@RequestBody CreateOrderDto createOrderDto) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = (UserDto) authentication.getPrincipal();
+
+        AddressDto addressDto = createOrderDto.getAddress();
+        Address address = addressRepository.save(new Address(addressDto.getFullName(), addressDto.getStreet(), addressDto.getNumber(), addressDto.getCity()));
+
+        Order order = new Order();
+        order.setAddress(address);
+        order.setOrderDate(new Date());
+        order.setOrderStatus("pending");
+        order.setByUser(userService.findById(createOrderDto.getByUser()));
+        order = orderRepository.save(order);
+
+        double orderTotal = 0;
+        for (CreateOrderDetailDto orderDetailDto : createOrderDto.getOrderDetails()) {
+            Optional<Product> productOptional = productRepository.findById(orderDetailDto.getProductId());
+            if (productOptional.isPresent()) {
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setOrder(order);
+                orderDetail.setProduct(productOptional.get());
+                orderDetail.setQuantity(orderDetailDto.getQuantity());
+                double orderDetailTotal = orderDetail.getProduct().getPrice() * orderDetail.getQuantity();
+                orderDetail.setTotal(orderDetailTotal);
+                orderDetail = orderDetailRepository.save(orderDetail);
+                orderTotal += orderDetailTotal;
+            }
+        }
+
+        order.setOrderTotal(orderTotal);
+        orderRepository.save(order);
+
+        return ResponseEntity.ok(order);
+    }
 }

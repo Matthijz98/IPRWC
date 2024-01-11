@@ -55,4 +55,8 @@ public class UserService {
         return userMapper.toUserDto(user);
     }
 
+    public User findById(long byUser) {
+        return userRepository.findById(byUser)
+                .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
+    }
 }
