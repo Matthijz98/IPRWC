@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ProductService} from "../../services/product.service";
-import {Product} from "../../interfaces/product";
 import {NgxSmartModalModule} from "ngx-smart-modal";
-import {CreateProductComponent} from "../product/create-product/create-product.component";
+import {CreateProductComponent} from "../create-product/create-product.component";
+import {ProductService} from "../../../services/product.service";
+import {Product} from "../../../interfaces/product";
+
 
 @Component({
   selector: 'app-admin-product-card',

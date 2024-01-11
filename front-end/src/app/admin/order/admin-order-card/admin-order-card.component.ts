@@ -1,14 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {OrderService} from "../../services/order.service";
-import {Order} from "../../interfaces/order";
 import { DatePipe } from '@angular/common';
+import {OrderService} from "../../../services/order.service";
+import {Order} from "../../../interfaces/order";
+import {RouterLink} from "@angular/router";
 
 
 @Component({
   selector: 'app-admin-order-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './admin-order-card.component.html',
   styleUrl: './admin-order-card.component.css',
   providers: [

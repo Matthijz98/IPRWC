@@ -5,8 +5,10 @@ import {AdminComponent} from "./admin/admin.component";
 import {ShoppingCardComponent} from "./shopping-card/shopping-card.component";
 import {LoginComponent} from "./auth/login/login.component";
 import {AuthGuard} from "./guards/auth.guard";
+import {OrderDetailsComponent} from "./admin/order/order-details/order-details.component";
 
 export const routes: Routes = [
+  { path: 'admin/order/:id', component: OrderDetailsComponent, canActivate: [AuthGuard]},
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
   { path: '', component: HomePageComponent },
 

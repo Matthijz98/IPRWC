@@ -1,4 +1,11 @@
 import {User} from "./user";
+import {Product} from "./product";
+
+interface OrderDetail {
+  id: number;
+  quantity: number;
+  product: Product;
+}
 
 export interface Order {
   id: number;
@@ -6,4 +13,5 @@ export interface Order {
   orderDate: number;
   orderStatus: string;
   byUser: User;
+  orderDetails: OrderDetail[];
 }

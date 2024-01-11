@@ -14,7 +14,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let order of orders" class="bg-white border-b">
-      <td class="py-4 px-6">{{order.id}}</td>
+      <td class="py-4 px-6"><a class="underline" routerLink="/admin/order/{{order.id}}">{{order.id}}</a></td>
       <td class="py-4 px-6">{{order.byUser.login}}</td>
       <td class="py-4 px-6">{{formatDate(order.orderDate)}}</td>
       <td class="py-4 px-6">

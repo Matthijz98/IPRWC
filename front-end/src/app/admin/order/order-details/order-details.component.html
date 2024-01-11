@@ -1,0 +1,44 @@
+<div class="container mx-auto">
+  <h1 class="text-2xl font-bold">Order: {{ order?.id }}</h1>
+
+  <div class="bg-blue-50 rounded border border-slate-500 shadow overflow-hidden mb-6">
+    <div class="p-4 flex justify-between">
+      <div>
+        Order details <br>
+        Order status: {{ order?.orderStatus }}<br>
+        Order date: {{ order?.orderDate | date: 'dd/MM/yyyy' }}<br>
+        Total price: {{ order?.orderTotal }}<br>
+      </div>
+      <div>
+        By: {{ order?.byUser.login }}<br>
+
+      </div>
+      <div>
+        Adress
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-blue-50 rounded border border-slate-500 shadow overflow-hidden">
+    <table class="w-full text-left">
+      <thead class="uppercase bg-gray-50">
+      <tr>
+        <th class="py-3 px-6">Product name</th>
+        <th class="py-3 px-6">Quantity</th>
+        <th class="py-3 px-6">Price</th>
+        <th class="py-3 px-6">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let detail of order?.orderDetails" class="bg-white border-b">
+        <td class="py-3 px-6">{{ detail.product.title }}</td>
+        <td class="py-3 px-6">{{ detail.quantity }}</td>
+        <td class="py-3 px-6">{{ detail.product.price }} * {{detail.quantity}} = {{detail.product.price * detail.quantity }}</td>
+        <td class="py-3 px-6">
+          <button class="bg-red-600 py-1 px-2 rounded text-white font-bold" (click)="deleteOrderDetail(detail.id)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
