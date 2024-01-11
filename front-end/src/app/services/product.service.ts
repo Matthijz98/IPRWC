@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Product} from "../interfaces/product";
 import {Injectable} from "@angular/core";
 import {Subject} from 'rxjs';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
@@ -13,19 +14,19 @@ export class ProductService{
   constructor(private http: HttpClient,) { }
 
   get_products(){
-    return this.http.get<Product[]>('http://localhost:8080/public/products/')
+    return this.http.get<Product[]>(`${environment.apiUrl}/public/products/`)
   }
 
   get_product(id: number){
-    return this.http.get<Product>('http://localhost:8080/public/products/' + id)
+    return this.http.get<Product>(`${environment.apiUrl}/public/products/` + id)
   }
 
   create_product(title: string, description: string, price: number){
     const newProduct = { title: title, description: description, price: price };
-    return this.http.post<Product>('http://localhost:8080/private/products', newProduct)
+    return this.http.post<Product>(`${environment.apiUrl}/private/products`, newProduct)
   }
 
   del_product(id: number){
-    return this.http.delete<Product>('http://localhost:8080/private/products/' + id)
+    return this.http.delete<Product>(`${environment.apiUrl}/private/products/` + id)
   }
 }

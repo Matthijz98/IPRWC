@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {tap} from "rxjs";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthService{
 
   login(username: string, password: string){
     const newLogin = { login: username, password: password };
-    return this.http.post<{token: string}>('http://localhost:8080/login', newLogin).pipe(
+    return this.http.post<{token: string}>( `${environment.apiUrl}/login`, newLogin).pipe(
       tap((res) => {
         localStorage.setItem('jwtToken', res.token);
         // After successful login, redirect to the stored URL
@@ -33,6 +34,6 @@ export class AuthService{
 
   register(username: string, password: string){
     const newRegister = { login: username, password: password };
-    return this.http.post('http://localhost:8080/register', newRegister)
+    return this.http.post(`${environment.apiUrl}/register`, newRegister)
   }
 }
