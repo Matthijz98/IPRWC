@@ -1,7 +1,19 @@
 package com.iprwc.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.Date;
+import java.util.List;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
 @Entity
 @Table(name="orders")
 public class Order {
@@ -10,15 +22,19 @@ public class Order {
     private long id;
 
     @Column(name = "order_total")
-    private Number orderTotal;
+    private double orderTotal;
 
     @Column(name = "order_date")
-    private String orderDate;
+    private Date orderDate;
 
     @Column(name = "order_status")
     private String orderStatus;
 
-    @Column(name = "by_user")
-    private String byUser;
+    @ManyToOne
+    @JoinColumn(name = "by_user", referencedColumnName = "id")
+    private User byUser;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<OrderDetail> orderDetails;
 }

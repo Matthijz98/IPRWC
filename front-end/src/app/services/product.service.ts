@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Product} from "../interfaces/product";
 import {Injectable} from "@angular/core";
-import {Subject, tap} from 'rxjs';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

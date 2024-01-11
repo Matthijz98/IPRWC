@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 public class OrderController {
 
     @Autowired
     OrderRepsoitory orderRepsoitory;
 
-    @GetMapping("/orders")
+    @GetMapping("/private/orders/")
     public ResponseEntity<List<Order>> getAllOrders(@RequestParam(required = false) String title){
         try {
             List<Order> orders = orderRepsoitory.findAll();

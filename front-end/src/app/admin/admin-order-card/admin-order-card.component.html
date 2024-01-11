@@ -1,4 +1,4 @@
-<h1 class="font-bold text-blue-600 text-3xl">Orders</h1>
+<h1 class="font-bold text-blue-600 text-3xl mb-1">Orders</h1>
 
 <div class="bg-blue-50 rounded border border-slate-500 shadow overflow-hidden">
   <table class="w-full text-left">
@@ -13,13 +13,20 @@
     </tr>
     </thead>
     <tbody>
-    <tr class="bg-white border-b">
-      <td class="py-4 px-6">Order ID</td>
-      <td class="py-4 px-6">Customer</td>
-      <td class="py-4 px-6">Order Date</td>
-      <td class="py-4 px-6">Order Status</td>
-      <td class="py-4 px-6">Order Total</td>
-      <td class="py-4 px-6"><button></button></td>
+    <tr *ngFor="let order of orders" class="bg-white border-b">
+      <td class="py-4 px-6">{{order.id}}</td>
+      <td class="py-4 px-6">{{order.byUser.login}}</td>
+      <td class="py-4 px-6">{{formatDate(order.orderDate)}}</td>
+      <td class="py-4 px-6">
+        <div class="bg-green-500 rounded py-1 px-2 font-bold text-white text-center">
+          {{order.orderStatus}}
+        </div>
+      </td>
+      <td class="py-4 px-6">{{order.orderTotal}}</td>
+      <td class="py-4 px-6">
+        <button class="bg-blue-600 py-1 px-2 rounded text-white font-bold mr-1">Edit</button>
+        <button class="bg-red-600 py-1 px-2 rounded text-white font-bold">Delete</button>
+      </td>
     </tr>
     </tbody>
   </table>

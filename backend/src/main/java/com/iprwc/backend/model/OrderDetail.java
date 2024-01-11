@@ -1,8 +1,15 @@
 package com.iprwc.backend.model;
-
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
 @Entity
 @Table(name="order_detail")
 public class OrderDetail {
@@ -14,11 +21,11 @@ public class OrderDetail {
     private int quantity;
 
     @ManyToOne()
-    @JoinColumn(name = "product_id")
-    private Product productId;
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
 
-    @ManyToOne()
-    @JoinColumn(name = "order_id")
-    private Order orderId;
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JsonBackReference
+    private Order order;
 }
