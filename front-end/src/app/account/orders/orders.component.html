@@ -1,4 +1,4 @@
-<div class="bg-slate-200 rounded p-2">
+<div class="bg-slate-400 rounded p-2">
   <table class="w-full text-left">
     <thead>
       <tr>
@@ -12,7 +12,7 @@
       <tr *ngFor="let order of orders" class="border-b border-black">
         <td>{{ order.id }}</td>
         <td>{{ formatDate(order.orderDate) }}</td>
-        <td>{{ order.orderTotal }}</td>
+        <td>€ {{ order.orderTotal }}</td>
         <td>
           <button class="bg-blue-500 px-4 py-1 rounded text-white font-bold" routerLink="/account/order/{{order.id}}">View</button>
       </tr>

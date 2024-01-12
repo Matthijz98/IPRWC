@@ -1,10 +1,13 @@
 package com.iprwc.backend.controller;
 
+import com.iprwc.backend.dto.UserDto;
 import com.iprwc.backend.model.Product;
 import com.iprwc.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -48,17 +51,28 @@ public class ProductController {
 
     @DeleteMapping("/private/products/{id}")
     public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") long id) {
-        try {
-            productRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            System.out.println(e);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDto reqUser = (UserDto) authentication.getPrincipal();
+
+        if (reqUser.getRole().matches("admin")) {
+            try {
+                productRepository.deleteById(id);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } catch (Exception e) {
+                System.out.println(e);
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/products")
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDto reqUser = (UserDto) authentication.getPrincipal();
+
+        if (reqUser.getRole().matches("admin")) {
         try {
             Product _product = new Product();
             _product.setTitle(product.getTitle());

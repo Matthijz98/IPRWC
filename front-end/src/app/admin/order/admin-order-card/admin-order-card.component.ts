@@ -4,12 +4,13 @@ import { DatePipe } from '@angular/common';
 import {OrderService} from "../../../services/order.service";
 import {Order} from "../../../interfaces/order";
 import {RouterLink} from "@angular/router";
+import {OrderCreateComponent} from "../order-create/order-create.component";
 
 
 @Component({
   selector: 'app-admin-order-card',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, OrderCreateComponent],
   templateUrl: './admin-order-card.component.html',
   styleUrl: './admin-order-card.component.css',
   providers: [
@@ -30,6 +31,12 @@ export class AdminOrderCardComponent implements OnInit{
 
   public formatDate(date: number): string {
     return <string>this.datePipe.transform(date, 'dd-MM-yyyy HH:mm');
+  }
+
+  onDeleteOrder(orderId: number) {
+    this.orderService.del_order(orderId).subscribe(() => {
+      this.orders = this.orders.filter(order => order.id !== orderId);
+    });
   }
 
 }

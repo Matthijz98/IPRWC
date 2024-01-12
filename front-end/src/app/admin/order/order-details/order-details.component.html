@@ -7,7 +7,7 @@
         Order details <br>
         Order status: {{ order?.orderStatus }}<br>
         Order date: {{ order?.orderDate | date: 'dd/MM/yyyy' }}<br>
-        Total price: {{ order?.orderTotal }}<br>
+        Total price: € {{ order?.orderTotal }}<br>
       </div>
       <div>
         By: {{ order?.byUser.login }}<br>
@@ -33,7 +33,7 @@
       <tr *ngFor="let detail of order?.orderDetails" class="bg-white border-b">
         <td class="py-3 px-6">{{ detail.product.title }}</td>
         <td class="py-3 px-6">{{ detail.quantity }}</td>
-        <td class="py-3 px-6">{{ detail.product.price }} * {{detail.quantity}} = {{detail.product.price * detail.quantity }}</td>
+        <td class="py-3 px-6">€ {{ detail.product.price }} * {{detail.quantity}} = € {{detail.product.price * detail.quantity }}</td>
         <td class="py-3 px-6">
           <button class="bg-red-600 py-1 px-2 rounded text-white font-bold" (click)="deleteOrderDetail(detail.id)">Delete</button>
         </td>

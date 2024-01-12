@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {AdminUserCardComponent} from "./admin-user-card/admin-user-card.component";
+import {AdminUserCardComponent} from "./user/admin-user-card/admin-user-card.component";
 import {AdminOrderCardComponent} from "./order/admin-order-card/admin-order-card.component";
 import {AdminProductCardComponent} from "./product/admin-product-card/admin-product-card.component";
 

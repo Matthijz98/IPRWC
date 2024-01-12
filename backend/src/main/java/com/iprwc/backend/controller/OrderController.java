@@ -93,4 +93,14 @@ public class OrderController {
 
         return ResponseEntity.ok(order);
     }
+
+    @DeleteMapping("/private/orders/{id}")
+    public ResponseEntity<Order> deleteOrder(@PathVariable("id") long id) {
+        return orderRepository.findById(id)
+                .map(order -> {
+                    orderRepository.delete(order);
+                    return ResponseEntity.ok(order);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }

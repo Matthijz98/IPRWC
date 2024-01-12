@@ -4,6 +4,7 @@ import {NgxSmartModalModule} from "ngx-smart-modal";
 import {CreateProductComponent} from "../create-product/create-product.component";
 import {ProductService} from "../../../services/product.service";
 import {Product} from "../../../interfaces/product";
+import {RouterLink} from "@angular/router";
 
 
 @Component({
@@ -13,6 +14,7 @@ import {Product} from "../../../interfaces/product";
     CommonModule,
     NgxSmartModalModule,
     CreateProductComponent,
+    RouterLink,
   ],
   templateUrl: './admin-product-card.component.html',
   styleUrl: './admin-product-card.component.css',

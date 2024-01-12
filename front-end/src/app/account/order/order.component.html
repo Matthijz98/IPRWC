@@ -23,14 +23,14 @@
           </a>
         </td>
         <td class="py-3 px-6">{{ detail.quantity }}</td>
-        <td class="py-3 px-6">{{ detail.product.price }}</td>
-        <td class="py-3 px-6">{{ detail.product.price * detail.quantity }}</td>
+        <td class="py-3 px-6">€ {{ detail.product.price }}</td>
+        <td class="py-3 px-6">€ {{ detail.product.price * detail.quantity }}</td>
       </tr>
       </tbody>
       <tfoot>
       <tr class="font-bold">
         <td colspan="3" class="py-3 px-6 text-right">Total</td>
-        <td class="py-3 px-6">{{ order?.orderTotal }}</td>
+        <td class="py-3 px-6">€ {{ order?.orderTotal }}</td>
       </tfoot>
     </table>
   </div>

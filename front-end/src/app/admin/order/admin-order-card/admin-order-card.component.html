@@ -22,12 +22,14 @@
           {{order.orderStatus}}
         </div>
       </td>
-      <td class="py-4 px-6">{{order.orderTotal}}</td>
+      <td class="py-4 px-6">€ {{order.orderTotal}}</td>
       <td class="py-4 px-6">
         <button class="bg-blue-600 py-1 px-2 rounded text-white font-bold mr-1">Edit</button>
-        <button class="bg-red-600 py-1 px-2 rounded text-white font-bold">Delete</button>
+        <button class="bg-red-600 py-1 px-2 rounded text-white font-bold" (click)="onDeleteOrder(order.id)">Delete</button>
       </td>
     </tr>
     </tbody>
   </table>
+
+  <app-order-create></app-order-create>
 </div>

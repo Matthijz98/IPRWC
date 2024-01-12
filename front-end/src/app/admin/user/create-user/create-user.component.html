@@ -1,0 +1,26 @@
+<div class="p-4">
+  <h3 class="font-bold mb-3 text-xl">Add a new user</h3>
+  <form class="flex flex-col gap-1" (ngSubmit)="onSubmit()">
+    <div class="flex">
+      <label class="w-1/6">username: </label>
+      <input class="w-5/6 rounded p-1" type="text" [(ngModel)]="login" name="title" placeholder="username" required>
+    </div>
+
+    <div class="flex">
+      <label class="w-1/6">Description: </label>
+      <input class="w-5/6 rounded p-1" type="text" [(ngModel)]="password" name="description" placeholder="Description"
+             required>
+    </div>
+
+    <div class="flex">
+      <label class="w-1/6">Role: </label>
+      <select class="w-5/6 rounded p-1" type="number" [(ngModel)]="role" name="price" required>
+        <option value="admin">Admin</option>
+        <option value="user">User</option>
+      </select>
+    </div>
+
+    <button type="submit" class="bg-blue-500 rounded text-white p-2 font-bold hover:bg-blue-800">Add user</button>
+  </form>
+</div>
+

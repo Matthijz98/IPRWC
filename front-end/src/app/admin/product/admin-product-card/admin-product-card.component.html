@@ -14,9 +14,9 @@
     <tbody>
     <tr class="bg-white border-b" *ngFor="let product of products">
       <td class="py-4 px-6">{{product.id}}</td>
-      <td class="py-4 px-6">{{product.title}}</td>
+      <td class="py-4 px-6"><a routerLink="/product/{{product.id}}" class="hover:underline">{{product.title}}</a></td>
       <td class="py-4 px-6">{{product.description}}</td>
-      <td class="py-4 px-6">{{product.price}}</td>
+      <td class="py-4 px-6">€ {{product.price}}</td>
       <td class="py-4 px-6">
         <button class="bg-blue-600 py-1 px-2 rounded text-white font-bold mr-1">Edit</button>
         <button class="bg-red-600 py-1 px-2 rounded text-white font-bold" (click)="onDeleteProduct(product.id)">Delete</button>
