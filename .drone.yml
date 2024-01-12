@@ -2,6 +2,14 @@ kind: pipeline
 name: backend
 load: secret
 
+services:
+  - name: postgres
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_PASSWORD: pass # set a password for the database
+      POSTGRES_USER: root # set the username for the database
+      POSTGRES_DB: iprwc # give the default database a name
+
 steps:
   - name: build jar
     image: gradle:8.5-alpine

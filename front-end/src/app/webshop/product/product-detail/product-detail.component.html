@@ -4,14 +4,14 @@
       <img src="https://via.placeholder.com/800x800" alt="">
     </div>
     <div class="flex flex-col">
-      <h1 class="text-2xl font-bold">{{product.title}}</h1>
+      <h1 class="text-2xl font-bold">{{product?.title}}</h1>
       <span class="font-bold">Price: </span>
-      <span class="">€ {{product.price}}</span>
+      <span class="">€ {{product?.price}}</span>
 
-      <button class="my-4 rounded-full bg-blue-500 py-2 px-5 text-white font-bold">Add to cart</button>
+      <button [class]="buttonClass" (click)="addToCart(product)">{{ buttonText }}</button>
 
       <h2 class="text-2xl font-bold pt-2">Desciption</h2>
-      <p>{{product.description}}</p>
+      <p>{{product?.description}}</p>
     </div>
   </div>
 </div>
