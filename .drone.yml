@@ -2,14 +2,6 @@ kind: pipeline
 name: backend
 load: secret
 
-services:
-  - name: postgres
-    image: postgres:13-alpine
-    environment:
-      POSTGRES_PASSWORD: pass # set a password for the database
-      POSTGRES_USER: root # set the username for the database
-      POSTGRES_DB: iprwc # give the default database a name
-
 steps:
   - name: build jar
     image: gradle:8.5-alpine
@@ -42,19 +34,13 @@ steps:
     commands:
       - cd front-end
       - npm install
-  #  - name: test
-  #    image: node:18
-  #    commands:
-  #      - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-  #      - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-  #      - apt-get update && apt-get install -y google-chrome-stable
-  #      - cd front-end
-  #      - npm test
+
   - name: build angular
     image: node:18
     commands:
       - cd front-end
       - npm run build
+  
   - name: build docker image
     image: plugins/docker
     settings:
