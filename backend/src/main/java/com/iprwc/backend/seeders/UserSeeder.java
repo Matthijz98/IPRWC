@@ -4,10 +4,12 @@ import com.iprwc.backend.model.User;
 import com.iprwc.backend.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class UserSeeder {
     @Bean
-    CommandLineRunner initDatabase(UserRepository userRepository) {
+    CommandLineRunner initDatabaseUser(UserRepository userRepository) {
         return args -> {
             if(userRepository.count() == 0) { // Check if the database is empty
                 // Create and save demo data

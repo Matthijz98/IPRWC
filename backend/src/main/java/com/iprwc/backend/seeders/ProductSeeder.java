@@ -4,10 +4,12 @@ import com.iprwc.backend.model.Product;
 import com.iprwc.backend.repository.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class ProductSeeder {
     @Bean
-    CommandLineRunner initDatabase(ProductRepository productRepository) {
+    CommandLineRunner initDatabaseProduct(ProductRepository productRepository) {
         return args -> {
             if(productRepository.count() == 0) { // Check if the database is empty
                 // Create and save demo data
