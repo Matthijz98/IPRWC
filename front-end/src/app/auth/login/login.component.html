@@ -1,11 +1,22 @@
-<div class="flex items-center justify-center w-full pt-32 px-4">
+<div class="flex items-center justify-center w-full pt-16 px-4">
 
-  <div class="flex-col w-full md:w-1/3">
+  <div class="flex-col ">
     <div *ngIf="success_message" class="bg-green-500 rounded p-4 text-white mb-2 border-2 border-green-600">
       {{ success_message }}
     </div>
     <div *ngIf="error_message" class="bg-red-500 rounded p-4 text-white mb-2 border-2 border-red-600">
       {{ error_message }}
+    </div>
+
+    <div class="bg-amber-300 p-4 rounded mb-2">
+      user account: <br>
+      Username: demo <br>
+      Password: demo
+
+      <br><br>
+      admin account: <br>
+      Username: admin <br>
+      Password: admin
     </div>
 
     <div class="bg-slate-400 rounded shadow p-6">

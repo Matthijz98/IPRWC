@@ -1,15 +1,17 @@
 <div class="overflow-hidden rounded-md border-black border-2 shadow-xl mb-4">
-  <a [routerLink]="['/product', product.id]">
-    <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
-         class="">
-    <div class="flex justify-between">
-      <div class="p-6">
+
+  <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
+       class="">
+  <div class="flex justify-between">
+    <div class="p-6">
+      <a [routerLink]="['/product', product.id]">
         <h3 class="text-2xl font-bold text-gray-700">
-          {{product.title}}
+          {{ product.title }}
         </h3>
-        <p class="text-xl font-medium text-gray-900">€ {{product.price}}</p>
-        <button class="mt-4 bg-gray-900 text-white px-4 py-2 rounded" (click)="addToCart(product)">Add to cart</button>
-      </div>
+        <p class="text-xl font-medium text-gray-900">€ {{ product.price }}</p>
+      </a>
+      <button [class]="buttonClass" (click)="addToCart(product)">{{ buttonText }}</button>
     </div>
-  </a>
+  </div>
+
 </div>
