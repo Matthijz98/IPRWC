@@ -40,7 +40,7 @@ steps:
     commands:
       - cd front-end
       - npm run build
-  
+
   - name: build docker image
     image: plugins/docker
     settings:

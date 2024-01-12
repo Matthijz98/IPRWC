@@ -55,4 +55,9 @@ export class CartService {
     }
     this.cookieService.set('cart', JSON.stringify(this.cart));
   }
+
+  clearCart() {
+    this.cart = [];
+    this.cookieService.set('cart', JSON.stringify(this.cart));
+  }
 }

@@ -14,26 +14,38 @@ export class AuthService{
     return !!localStorage.getItem('jwtToken');
   }
 
+  logout(){
+    localStorage.removeItem('jwtToken');
+    this.router.navigate(['/']);
+  }
+
   login(username: string, password: string){
     const newLogin = { login: username, password: password };
     return this.http.post<{token: string}>( `${environment.apiUrl}/login`, newLogin).pipe(
-      tap((res) => {
-        localStorage.setItem('jwtToken', res.token);
-        // After successful login, redirect to the stored URL
-        const redirectUrl = localStorage.getItem('redirectUrl');
-        if (redirectUrl) {
-          this.router.navigate([redirectUrl]);
-          localStorage.removeItem('redirectUrl');
-        } else {
-          // If there's no stored URL, redirect to a default page
-          this.router.navigate(['/']);
-        }
+      tap(response => {
+        localStorage.setItem('jwtToken', response.token);
+        const redirectUrl = localStorage.getItem('redirectUrl') || '/';
+        localStorage.removeItem('redirectUrl');
+
+        this.router.navigate([redirectUrl]);
+
       })
     );
   }
 
   register(username: string, password: string){
     const newRegister = { login: username, password: password };
-    return this.http.post(`${environment.apiUrl}/register`, newRegister)
+    return this.http.post<{token: string}>(`${environment.apiUrl}/register`, newRegister).pipe(
+      tap(response => {
+        localStorage.setItem('jwtToken', response.token);
+        const redirectUrl = localStorage.getItem('redirectUrl') || '/';
+        console.log(redirectUrl)
+        localStorage.removeItem('redirectUrl');
+
+        this.router.navigate([redirectUrl]).catch(error => {
+          console.error('Navigation error:', error); // Add this line to catch any navigation errors
+        });
+      })
+    );
   }
 }

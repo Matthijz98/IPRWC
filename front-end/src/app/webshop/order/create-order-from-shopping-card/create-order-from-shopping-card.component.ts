@@ -4,6 +4,7 @@ import {OrderService} from "../../../services/order.service";
 import {FormsModule} from "@angular/forms";
 import {LoginRequiredComponent} from "../../../auth/login-required/login-required.component";
 import {Router} from "@angular/router";
+import {CartService} from "../../../services/card.service";
 
 export interface OrderForm {
   fullname: string;
@@ -32,7 +33,7 @@ export class CreateOrderFromShoppingCardComponent {
     city: ''
   };
 
-  constructor(private orderService: OrderService, private router: Router) {}
+  constructor(private orderService: OrderService, private router: Router, private cartService: CartService) {}
 
   onSubmit() {
     const orderData = {
@@ -50,9 +51,8 @@ export class CreateOrderFromShoppingCardComponent {
     };
 
     this.orderService.create_order(orderData).subscribe(response => {
-      console.log(response);
       // if order was created successfully, clear the cart and redirect to the order details page
-      this.cartData = [];
+      this.cartService.clearCart();
       // send to the order page
       this.router.navigate(['/account/order', response.id], {queryParams: {success: true}});
     });

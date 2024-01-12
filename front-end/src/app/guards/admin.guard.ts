@@ -11,7 +11,7 @@ interface DecodedToken {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AdminAuthGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -21,7 +21,10 @@ export class AuthGuard implements CanActivate {
 
     const token = localStorage.getItem('jwtToken');
     if (token) {
-      return true;
+      const decodedToken = jwtDecode<DecodedToken>(token);
+      if (decodedToken.role === 'admin') {
+        return true;
+      }
     }
     this.router.navigate(['/auth/login']);
     return false;

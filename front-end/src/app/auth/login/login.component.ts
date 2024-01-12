@@ -22,16 +22,13 @@ export class LoginComponent {
   success_message: string = '';
   error_message: string = '';
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   login(): void {
     this.authService.login(this.username, this.password).subscribe(response => {
       // Handle login success
       this.success_message = 'Login successful';
       this.error_message = '';
-      const redirectUrl = localStorage.getItem('redirectUrl') || '/';
-      console.log(redirectUrl)
-      this.router.navigate(['/admin']);
     }, error => {
       // Handle login error
       this.error_message = 'Login failed';

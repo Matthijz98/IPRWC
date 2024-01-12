@@ -8,10 +8,11 @@ import {ProductDetailComponent} from "./webshop/product/product-detail/product-d
 import {ShoppingCardComponent} from "./webshop/shopping-card/shopping-card.component";
 import {AccountPageComponent} from "./account/account-page/account-page.component";
 import {AccountOrderComponent} from "./account/order/order.component";
+import {AdminAuthGuard} from "./guards/admin.guard";
 
 export const routes: Routes = [
-  { path: 'admin/order/:id', component: OrderDetailsComponent, canActivate: [AuthGuard]},
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
+  { path: 'admin/order/:id', component: OrderDetailsComponent, canActivate: [AdminAuthGuard]},
+  { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard] },
   { path: '', component: HomePageComponent },
 
   // Account routes
