@@ -6,6 +6,7 @@ import {environment} from "../../environments/environment";
 import {jwtDecode} from "jwt-decode";
 
 interface DecodedToken {
+  id: number;
   role: string;
   // include other properties as needed
 }
@@ -65,5 +66,16 @@ export class AuthService{
       return false;
     }
 
+  }
+
+  getUserId() {
+    const token = localStorage.getItem('jwtToken');
+    if (token) {
+      const decodedToken = jwtDecode<DecodedToken>(token);
+      console.log(decodedToken)
+      return decodedToken.id;
+    }else {
+      return undefined;
+    }
   }
 }

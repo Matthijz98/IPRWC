@@ -42,6 +42,7 @@ public class UserAuthProvider {
                 .withIssuedAt(now)
                 .withExpiresAt(validity)
                 .withClaim("role", user.getRole())
+                .withClaim("id", user.getId())
                 .sign(algorithm);
     }
 
@@ -56,6 +57,7 @@ public class UserAuthProvider {
         UserDto user = UserDto.builder()
                 .login(decoded.getSubject())
                 .role(decoded.getClaim("role").asString())
+                .id(decoded.getClaim("id").asLong())
                 .build();
 
         return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());

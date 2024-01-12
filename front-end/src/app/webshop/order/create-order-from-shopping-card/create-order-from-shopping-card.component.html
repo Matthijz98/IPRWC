@@ -2,29 +2,48 @@
 <app-login-required>
   <div class="bg-slate-400 shadow rounded p-4">
     <form (ngSubmit)="onSubmit()">
-      <div class="flex mt-1">
-        <label class="w-1/3 my-auto">Full name:</label>
-        <input class="w-full rounded p-1" id="fullname" [(ngModel)]="orderForm.fullname" name="fullname">
+      <div *ngIf="addresses.length > 0" class="flex">
+        <label for="address" class="w-1/3">Select an address:</label>
+        <select id="address" name="address" class="w-full" [(ngModel)]="address">
+          <option *ngFor="let address of addresses" [value]="address.id">{{ address.street }}, {{ address.number }}
+            , {{ address.city }}
+          </option>
+        </select>
       </div>
 
-      <div class="flex mt-1">
-        <label class="w-1/3 my-auto">Street:</label>
-        <input class="w-full rounded p-1" id="street" [(ngModel)]="orderForm.street" name="street">
-      </div>
-
-      <div class="flex mt-1">
-        <label class="w-1/3 my-auto">House number:</label>
-        <input class="w-full rounded p-1" id="number" [(ngModel)]="orderForm.number" name="number">
-      </div>
-
-      <div class="flex mt-1">
-        <label class="w-1/3 my-auto">City:</label>
-        <input class="w-full rounded p-1" id="city" [(ngModel)]="orderForm.city" name="city">
-      </div>
 
       <button type="submit" class="px-4 py-2 bg-blue-500 rounded mt-6 text-white font-bold">
         Place order
       </button>
+
+    </form>
+
+    <h2 class="mt-6 font-bold">Or create new address:</h2>
+    <form (ngSubmit)="createAddress()">
+      <div class="flex mt-1">
+        <label class="w-1/3 my-auto">Full name:</label>
+        <input class="w-full rounded p-1" id="fullname" name="fullname" [(ngModel)]="newAddress.fullName">
+      </div>
+
+      <div class="flex mt-1">
+        <label class="w-1/3 my-auto">Street:</label>
+        <input class="w-full rounded p-1" id="street" name="street" [(ngModel)]="newAddress.street">
+      </div>
+
+      <div class="flex mt-1">
+        <label class="w-1/3 my-auto">House number:</label>
+        <input class="w-full rounded p-1" id="number" name="number" [(ngModel)]="newAddress.number">
+      </div>
+
+      <div class="flex mt-1">
+        <label class="w-1/3 my-auto">City:</label>
+        <input class="w-full rounded p-1" id="city" name="city" [(ngModel)]="newAddress.city">
+      </div>
+
+      <button type="submit" class="px-4 py-2 bg-blue-500 rounded mt-6 text-white font-bold">
+        Create address
+      </button>
     </form>
   </div>
+
 </app-login-required>

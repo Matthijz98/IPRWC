@@ -6,6 +6,9 @@ import {Product} from "../../../interfaces/product";
 import {ProductService} from "../../../services/product.service";
 import {User} from "../../../interfaces/user";
 import {OrderService} from "../../../services/order.service";
+import {Order} from "../../../interfaces/order";
+import {Address} from "../../../interfaces/address";
+import {AddressService} from "../../../services/address.service";
 
 interface ngOnInit {
 }
@@ -23,16 +26,18 @@ interface ngOnInit {
 })
 export class OrderCreateComponent implements OnInit {
   users: User[] = [];
-  user: User | null = null;
+  user: number = 0;
   products: Product[] = [];
   orderLines: { product: Product, quantity: number }[] = [];
 
-  fullName: string = '';
-  street: string = '';
-  number: string = '';
-  city: string = '';
+  address: number | null = null;
+  addresses: Address[] = [];
 
-  constructor(private userService: UserService, private productService: ProductService, private orderService: OrderService) {
+  constructor(
+    private userService: UserService,
+    private productService: ProductService,
+    private orderService: OrderService,
+    private addressService: AddressService) {
   }
 
   ngOnInit(): void {
@@ -52,22 +57,27 @@ export class OrderCreateComponent implements OnInit {
   onSubmit() {
     const orderData = {
       byUser: this.user,
-      address: {
-        fullName: this.fullName,
-        street: this.street,
-        number: this.number,
-        city: this.city
-      },
+      addressId: this.address,
       orderDetails: this.orderLines.map(orderLine => ({
         productId: orderLine.product.id,
         quantity: orderLine.quantity
       }))
     };
 
-    this.orderService.create_order(orderData).subscribe();
+    this.orderService.create_order(orderData).subscribe((newOrder: Order) => {
+      this.orderLines = [];
+      this.user = 0;
+    });
   }
 
   removeProductLine(i: number) {
     this.orderLines.splice(i, 1);
+  }
+
+  onUserChange() {
+    console.log(this.user);
+    this.addressService.get_addresses_by_user(this.user).subscribe((addresses: Address[]) => {
+      this.addresses = addresses;
+    });
   }
 }

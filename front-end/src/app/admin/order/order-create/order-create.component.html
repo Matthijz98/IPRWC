@@ -5,8 +5,15 @@
 
     <div class="flex">
       <label class="w-1/6">User: </label>
-      <select class="w-full rounded p-1" type="text" [(ngModel)]="user" name="user" required>
+      <select class="w-full rounded p-1" type="text" [(ngModel)]="user" name="user" required (change)="onUserChange()">
         <option *ngFor="let user of users" [value]="user.id">{{ user.login }}</option>
+      </select>
+    </div>
+
+    <div class="flex">
+      <label class="w-1/6">Address: </label>
+      <select class="w-full rounded p-1" type="text" [(ngModel)]="address" name="address" required *ngIf="user">
+        <option *ngFor="let address of addresses" [value]="address.id">{{ address.fullName }} - {{address.street}} - {{address.number}}</option>
       </select>
     </div>
 

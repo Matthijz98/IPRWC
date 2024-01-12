@@ -1,10 +1,14 @@
 package com.iprwc.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,6 +32,11 @@ public class Address {
 
     @Column(name = "city")
     private String city;
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
 
     public Address(String fullName, String street, String number, String city) {
         this.fullName = fullName;

@@ -63,14 +63,20 @@ public class OrderController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDto user = (UserDto) authentication.getPrincipal();
 
-        AddressDto addressDto = createOrderDto.getAddress();
-        Address address = addressRepository.save(new Address(addressDto.getFullName(), addressDto.getStreet(), addressDto.getNumber(), addressDto.getCity()));
 
         Order order = new Order();
-        order.setAddress(address);
+        order.setAddress(addressRepository.findById(createOrderDto.getAddressId()).get());
         order.setOrderDate(new Date());
         order.setOrderStatus("pending");
-        order.setByUser(userService.findById(createOrderDto.getByUser()));
+
+        // check if the order is made by the user or by the admin
+        if(createOrderDto.getByUser() != null){
+            order.setByUser(userService.findById(createOrderDto.getByUser()));
+        }else {
+            order.setByUser(userService.findById(user.getId()));
+        }
+
+
         order = orderRepository.save(order);
 
         double orderTotal = 0;

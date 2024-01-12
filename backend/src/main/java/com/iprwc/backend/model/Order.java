@@ -1,6 +1,7 @@
 package com.iprwc.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,7 +42,6 @@ public class Order {
 
     @ManyToOne()
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    @JsonBackReference
     private Address address;
 
 }

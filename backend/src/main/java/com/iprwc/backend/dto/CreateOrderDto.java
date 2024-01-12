@@ -9,8 +9,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
 public class CreateOrderDto {
-    public long byUser;
+    public Long byUser;
     public List<CreateOrderDetailDto> orderDetails;
-    public AddressDto address;
+    public Long addressId;
 }

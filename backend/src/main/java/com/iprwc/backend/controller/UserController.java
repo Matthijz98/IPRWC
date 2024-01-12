@@ -1,6 +1,7 @@
 package com.iprwc.backend.controller;
 
 import com.iprwc.backend.dto.UserDto;
+import com.iprwc.backend.model.Address;
 import com.iprwc.backend.model.User;
 import com.iprwc.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -99,5 +101,18 @@ public class UserController {
         }
     }
 
+    @GetMapping("/private/users/{id}/address/")
+    public ResponseEntity<List<Address>> getUserAddress(@PathVariable("id") long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDto reqUser = (UserDto) authentication.getPrincipal();
+
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            List<Address> addresses = userOptional.get().getAddresses();
+            return ResponseEntity.ok(addresses);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }
