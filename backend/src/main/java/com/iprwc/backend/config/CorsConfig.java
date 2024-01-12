@@ -11,12 +11,12 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 
 @Configuration
-@EnableWebMvc
-public class CorsConfig {
+public class CorsConfig implements WebMvcConfigurer {
     private static final Long MAX_AGE = 3600L;
     private static final int CORS_FILTER_ORDER = -102;
 
@@ -28,8 +28,11 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
+
         // get from application.properties
         String allowedOrigins = env.getProperty("cors.allowed-origins");
+
+        System.out.println("allowedOrigins: " + allowedOrigins);
         for (String allowedOrigin : allowedOrigins.split(",")) {
             config.addAllowedOrigin(allowedOrigin.trim());
         }
@@ -47,7 +50,7 @@ public class CorsConfig {
         FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
 
         // should be set order to -100 because we need to CorsFilter before SpringSecurityFilter
-        bean.setOrder(CORS_FILTER_ORDER);
+        bean.setOrder(-100);
         return bean;
     }
 }
