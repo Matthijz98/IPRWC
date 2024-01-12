@@ -3,6 +3,12 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {tap} from "rxjs";
 import {environment} from "../../environments/environment";
+import {jwtDecode} from "jwt-decode";
+
+interface DecodedToken {
+  role: string;
+  // include other properties as needed
+}
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +53,17 @@ export class AuthService{
         });
       })
     );
+  }
+
+  isAdmin() {
+    const token = localStorage.getItem('jwtToken');
+    if (token) {
+      const decodedToken = jwtDecode<DecodedToken>(token);
+      return decodedToken.role === 'admin';
+    }
+    else {
+      return false;
+    }
+
   }
 }
