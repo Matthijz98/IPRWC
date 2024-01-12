@@ -1,1 +1,31 @@
-<p>order-create works!</p>
+<div class="p-4">
+  <h3 class="font-bold mb-3 text-xl">Add new order</h3>
+  <form class="flex flex-col gap-1" (ngSubmit)="onSubmit()">
+
+
+    <div class="flex">
+      <label class="w-1/6">User: </label>
+      <select class="w-full rounded p-1" type="text" [(ngModel)]="user" name="user" required>
+        <option *ngFor="let user of users" [value]="user.id">{{ user.login }}</option>
+      </select>
+    </div>
+
+    <div *ngFor="let orderLine of orderLines; let i = index">
+      <div class="flex gap-1 items-center">
+        <label class="w-1/6">Product: </label>
+        <select class="w-5/6 rounded p-1" [(ngModel)]="orderLine.product" name="product{{i}}" required>
+          <option *ngFor="let product of products" [value]="product">{{ product.title }}</option>
+        </select>
+        <label class="px-4">Quantity: </label>
+        <input class="rounded p-1" type="number" [(ngModel)]="orderLine.quantity" name="quantity{{i}}" required>
+        <button (click)="removeProductLine(i)" class="bg-red-400 w-fit mx-auto px-4 py-1 rounded">Remove</button>
+      </div>
+    </div>
+
+    <a (click)="addProductLine()" class="bg-slate-400 w-fit mx-auto px-4 py-1 rounded">Add product</a>
+
+    <button type="submit" class="bg-blue-500 rounded text-white p-2 font-bold hover:bg-blue-800 mt-3">Add Order</button>
+
+  </form>
+</div>
+

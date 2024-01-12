@@ -21,7 +21,7 @@ public class ProductController {
     ProductRepository productRepository;
 
     @GetMapping("/public/products/")
-    public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String title ){
+    public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String title) {
         try {
             List<Product> products = new ArrayList<Product>();
 
@@ -62,7 +62,7 @@ public class ProductController {
                 System.out.println(e);
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-        }else {
+        } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -73,16 +73,18 @@ public class ProductController {
         UserDto reqUser = (UserDto) authentication.getPrincipal();
 
         if (reqUser.getRole().matches("admin")) {
-        try {
-            Product _product = new Product();
-            _product.setTitle(product.getTitle());
-            _product.setDescription(product.getDescription());
-            _product.setPrice(product.getPrice());
-            Product savedProduct = productRepository.save(_product);
-            return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
-        } catch (Exception e) {
-            System.out.println(e);
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            try {
+                Product _product = new Product();
+                _product.setTitle(product.getTitle());
+                _product.setDescription(product.getDescription());
+                _product.setPrice(product.getPrice());
+                Product savedProduct = productRepository.save(_product);
+                return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
+            } catch (Exception e) {
+                System.out.println(e);
+                return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 }

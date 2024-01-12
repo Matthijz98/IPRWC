@@ -27,6 +27,10 @@ export class AdminOrderCardComponent implements OnInit{
     this.orderService.get_orders().subscribe((orders: Order[]) => {
       this.orders = orders;
     });
+
+    this.orderService.orderCreated$.subscribe((newOrder: Order) => {
+      this.orders.push(newOrder);
+    });
   }
 
   public formatDate(date: number): string {

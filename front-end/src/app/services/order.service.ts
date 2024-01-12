@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import {Order} from "../interfaces/order";
 import {Injectable} from "@angular/core";
-import {Subject} from 'rxjs';
+import {Subject, tap} from 'rxjs';
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -22,7 +22,11 @@ export class OrderService{
   }
 
   create_order(orderData: any){
-    return this.http.post<Order>(`${environment.apiUrl}/private/orders`, orderData)
+    return this.http.post<Order>(`${environment.apiUrl}/private/orders`, orderData).pipe(
+      tap((newOrder: Order) => {
+        this.orderCreatedSource.next(newOrder);
+      })
+    );
   }
 
   del_order(id: number){
